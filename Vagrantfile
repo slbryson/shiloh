@@ -82,11 +82,12 @@ Vagrant.configure("2") do |config|
 
    config.vm.provision "shell", inline: <<-SHELL
 	echo " Install podman "
-	cd /etc/yum.repos.d/
-	sudo wget https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/CentOS_7/devel:kubic:libcontainers:stable.repo
+	#cd /etc/yum.repos.d/
+	#sudo wget https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/CentOS_7/devel:kubic:libcontainers:stable.repo
 	sudo yum -y install podman
+	sudo yum -y install buildah
 	echo " ++++++++++++++++++++++++++++++++++++++++++++++"
-	echo " Finished Podman Install "
+	echo " Finished Podman  && Buidah Install "
    SHELL
   ## Let's pull in a shell script for provisioning
   #	 Bryson (c) 2020
@@ -101,5 +102,26 @@ Vagrant.configure("2") do |config|
 
 	sudo yum -y install code
    
+   SHELL
+   config.vm.provision "shell", inline: <<-SHELL
+	echo " Install Node Js   "
+	curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
+	sudo yum -y install nodejs
+   SHELL
+   #  Install the Google cloud sdk
+   config.vm.provision "shell", inline: <<-SHELL
+   sudo tee -a /etc/yum.repos.d/google-cloud-sdk.repo << EOM
+[google-cloud-sdk]
+name=Google Cloud SDK
+baseurl=https://packages.cloud.google.com/yum/repos/cloud-sdk-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+	https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOM
+   SHELL
+   config.vm.provision "shell", inline: <<-SHELL
+	sudo yum -y install google-cloud-sdk
    SHELL
 end
