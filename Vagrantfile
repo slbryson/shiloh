@@ -123,5 +123,10 @@ EOM
    SHELL
    config.vm.provision "shell", inline: <<-SHELL
 	sudo yum -y install google-cloud-sdk
+	export PROJECT_ID=brysonmesh
+	mkdir ms
+	cp /vagrant/brysonmesh-d44929299181.json $HOME/ms
+	cat brysonmesh-d44929299181.json |sudo podman login -u _json_key  --password-stdin https://gcr.io
+
    SHELL
 end

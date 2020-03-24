@@ -1,0 +1,6 @@
+yum install -y rkt
+# yum install -y podman
+yum install -y buildah
+cd /etc/yum.repos.d/
+sudo wget https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/CentOS_7/devel:kubic:libcontainers:stable.repo
+sudo yum -y install podman
