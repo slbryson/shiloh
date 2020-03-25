@@ -122,6 +122,12 @@ gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
 EOM
    SHELL
    config.vm.provision "shell", inline: <<-SHELL
+	echo " Clone uservice directory "
+	sudo git clone https://github.com/slbryson/uservice.git
+	npm install
+	npm install express --save
+   SHELL
+   config.vm.provision "shell", inline: <<-SHELL
 	sudo yum -y install google-cloud-sdk
 	export PROJECT_ID=brysonmesh
 	mkdir ms
