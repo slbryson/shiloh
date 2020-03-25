@@ -76,6 +76,10 @@ Vagrant.configure("2") do |config|
    config.vm.provision "shell", inline: <<-SHELL1
 	echo "hello Lord Bryson welcome to a CENTOS env"
 	sudo yum -y install git
+        git config --global user.email "sidney@brysonworld.com"
+        git config --global user.name "Dr. Sidney L. Bryson"
+        git config --global push.default simple
+
 	sudo yum -y install wget
 
    SHELL1
@@ -124,6 +128,8 @@ EOM
    config.vm.provision "shell", inline: <<-SHELL
 	echo " Clone uservice directory "
 	sudo git clone https://github.com/slbryson/uservice.git
+        cd uservice
+        sudo chown -R vagrant:vagrant * .
 	npm install
 	npm install express --save
    SHELL
