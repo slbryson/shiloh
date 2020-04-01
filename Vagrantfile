@@ -139,4 +139,10 @@ EOM
    SHELL
 #	cp /vagrant/brysonmesh-d44929299181.json $HOME/
 #	cat brysonmesh-d44929299181.json |sudo podman login -u _json_key  --password-stdin https://gcr.io
+   config.vm.provision "shell", inline: <<-SHELL
+        sudo yum -y install centos-release-scl
+        sudo yum -y install rh-python36
+        scl enable rh-python36 bash
+
+   SHELL
 end
